@@ -37,4 +37,9 @@ public class UserService implements UserDetailsService {
         newUser.setEmail(email);
         return userRepository.save(newUser);
     }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
 }
