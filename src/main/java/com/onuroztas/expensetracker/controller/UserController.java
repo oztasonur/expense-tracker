@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -32,5 +34,11 @@ public class UserController {
     @GetMapping("/api/users/secured")
     public ResponseEntity<String> securedEndpoint(Authentication authentication) {
         return ResponseEntity.ok("Hello, " + authentication.getName() + "! This is a secured endpoint.");
+    }
+
+    @GetMapping("/api/users/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 }
