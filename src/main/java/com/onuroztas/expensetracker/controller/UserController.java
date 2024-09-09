@@ -10,24 +10,25 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("api/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/api/users/register")
+    @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         userService.registerNewUser(user.getUsername(), user.getPassword(), user.getEmail());
         return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("/api/users/all")
+    @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok)
