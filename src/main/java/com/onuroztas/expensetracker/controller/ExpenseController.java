@@ -15,6 +15,11 @@ public class ExpenseController {
     @Autowired
     private ExpenseService expenseService;
 
+    @GetMapping("/test")
+    public ResponseEntity<String> testEndpoint() {
+        return ResponseEntity.ok("Expense Tracker API is working!");
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ExpenseDTO> createExpense(@RequestBody Expense expense, Authentication authentication) {
         ExpenseDTO createdExpense = expenseService.createExpense(expense, authentication.getName());

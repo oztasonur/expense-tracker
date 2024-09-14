@@ -34,3 +34,4 @@ build/
 
 ### Environmen Variables ###
 /.env
+.aider*
