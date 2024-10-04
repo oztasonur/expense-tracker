@@ -6,8 +6,9 @@ import com.onuroztas.expensetracker.model.User;
 import com.onuroztas.expensetracker.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ExpenseService {
@@ -47,5 +48,13 @@ public class ExpenseService {
                 expense.getCurrency(),
                 expense.isExpense()
         );
+    }
+
+    public List<ExpenseDTO> getAllExpensesForUser(String username) {
+        User user = userService.getUserByUsername(username);
+        List<Expense> expenses = expenseRepository.findByUser(user);
+        return expenses.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 }

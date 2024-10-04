@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/expense")
 public class ExpenseController {
@@ -34,5 +36,11 @@ public class ExpenseController {
         } else {
             return ResponseEntity.badRequest().body("Unable to delete expense");
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ExpenseDTO>> getAllExpenses(Authentication authentication) {
+        List<ExpenseDTO> expenses = expenseService.getAllExpensesForUser(authentication.getName());
+        return ResponseEntity.ok(expenses);
     }
 }
