@@ -38,4 +38,14 @@ public class ExpenseController {
         List<ExpenseDTO> expenses = expenseService.getAllExpensesForUser(authentication.getName());
         return ResponseEntity.ok(expenses);
     }
+
+    @PutMapping("/update/{expenseId}")
+    public ResponseEntity<?> updateExpense(@PathVariable Long expenseId, @RequestBody Expense expense, Authentication authentication) {
+        ExpenseDTO updatedExpense = expenseService.updateExpense(expenseId, expense, authentication.getName());
+        if (updatedExpense != null) {
+            return ResponseEntity.ok(updatedExpense);
+        } else {
+            return ResponseEntity.badRequest().body("Unable to update expense. Either the expense doesn't exist or you don't have permission to update it.");
+        }
+    }
 }

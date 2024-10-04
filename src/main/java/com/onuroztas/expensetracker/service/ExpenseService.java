@@ -57,4 +57,22 @@ public class ExpenseService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+    public ExpenseDTO updateExpense(Long expenseId, Expense updatedExpense, String username) {
+        Optional<Expense> expenseOptional = expenseRepository.findById(expenseId);
+        if (expenseOptional.isPresent()) {
+            Expense existingExpense = expenseOptional.get();
+            if (existingExpense.getUser().getUsername().equals(username)) {
+                existingExpense.setExpenseName(updatedExpense.getExpenseName());
+                existingExpense.setDescription(updatedExpense.getDescription());
+                existingExpense.setAmount(updatedExpense.getAmount());
+                existingExpense.setCurrency(updatedExpense.getCurrency());
+                existingExpense.setExpense(updatedExpense.isExpense());
+                
+                Expense savedExpense = expenseRepository.save(existingExpense);
+                return convertToDTO(savedExpense);  
+            }
+        }
+        return null;
+    }
 }
