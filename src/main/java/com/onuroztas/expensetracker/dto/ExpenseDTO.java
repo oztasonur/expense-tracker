@@ -9,19 +9,19 @@ public class ExpenseDTO {
     private String description;
     private BigDecimal amount;
     private String currency;
-    private boolean isExpense;
+    private boolean expense;
 
     // Constructors
     public ExpenseDTO() {}
 
-    public ExpenseDTO(Long id, Long userId, String expenseName, String description, BigDecimal amount, String currency, boolean isExpense) {
+    public ExpenseDTO(Long id, Long userId, String expenseName, String description, BigDecimal amount, String currency, boolean expense) {
         this.id = id;
         this.userId = userId;
         this.expenseName = expenseName;
         this.description = description;
         this.amount = amount;
         this.currency = currency;
-        this.isExpense = isExpense;
+        this.expense = expense;
     }
 
     // Getters and setters
@@ -74,10 +74,10 @@ public class ExpenseDTO {
     }
 
     public boolean isExpense() {
-        return isExpense;
+        return expense;
     }
 
     public void setExpense(boolean expense) {
-        isExpense = expense;
+        this.expense = expense;
     }
 }
